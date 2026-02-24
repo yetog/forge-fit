@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Home, Dumbbell, History, Apple, User, Menu } from "lucide-react";
+import { Home, Dumbbell, History, Apple, User, Menu, BookOpen } from "lucide-react";
 import { useWorkout } from "@/context/WorkoutContext";
 import {
   Drawer,
@@ -23,10 +23,14 @@ const WorkoutNavbar: React.FC<WorkoutNavbarProps> = ({ activeTab, onChangeTab })
   const tabs = [
     { id: "dashboard", label: "Home", icon: Home },
     { id: "workouts", label: "Workouts", icon: Dumbbell },
+    { id: "programs", label: "Programs", icon: BookOpen },
     { id: "history", label: "History", icon: History },
     { id: "nutrition", label: "Nutrition", icon: Apple },
     { id: "profile", label: "Profile", icon: User },
   ];
+
+  // Bottom bar shows subset for mobile
+  const bottomTabs = tabs.filter(t => ['dashboard', 'workouts', 'programs', 'history', 'profile'].includes(t.id));
 
   const handleTabChange = (tab: string) => {
     onChangeTab(tab);
@@ -112,7 +116,7 @@ const WorkoutNavbar: React.FC<WorkoutNavbarProps> = ({ activeTab, onChangeTab })
       {/* Mobile bottom tab bar */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-sm border-t border-border">
         <div className="flex justify-around items-center h-16 px-2">
-          {tabs.map((tab) => (
+          {bottomTabs.map((tab) => (
             <button
               key={tab.id}
               className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-md transition-colors ${

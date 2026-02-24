@@ -1,27 +1,28 @@
+
 import React, { useState } from "react";
 import { useWorkout } from "@/context/WorkoutContext";
 import { workoutTemplates, getTemplateById } from "@/data/workoutTemplates";
 import { getExerciseById } from "@/data/exercises";
 import { SetLog } from "@/types/workout";
-import { Dumbbell, Clock, ChevronRight, Check, X, Play, Zap, Weight } from "lucide-react";
+import { Dumbbell, Clock, ChevronRight, Check, X, Play, ArrowRightLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import ExerciseSwapModal from "@/components/ExerciseSwapModal";
 
 interface Props {
   onNavigate: (tab: string) => void;
 }
 
 const WorkoutPage: React.FC<Props> = ({ onNavigate }) => {
-  const { activeWorkout, startWorkout, completeExercise, finishWorkout, cancelWorkout } = useWorkout();
+  const { activeWorkout, startWorkout } = useWorkout();
 
-  // If active workout, show exercise view
   if (activeWorkout) {
     return <ActiveWorkoutView onNavigate={onNavigate} />;
   }
 
-  // Otherwise show workout selection
-  const grouped = {
+  const grouped: Record<string, typeof workoutTemplates> = {
     Light: workoutTemplates.filter(t => t.type === 'Light'),
+    Bodyweight: workoutTemplates.filter(t => t.type === 'Bodyweight'),
     Isometric: workoutTemplates.filter(t => t.type === 'Isometric'),
     FullBody: workoutTemplates.filter(t => t.type === 'FullBody'),
   };
@@ -33,7 +34,7 @@ const WorkoutPage: React.FC<Props> = ({ onNavigate }) => {
         <p className="text-muted-foreground font-body text-lg">Choose your session</p>
       </div>
 
-      {Object.entries(grouped).map(([type, templates]) => (
+      {Object.entries(grouped).map(([type, templates]) => templates.length > 0 && (
         <div key={type} className="mb-8">
           <h2 className="font-display text-sm tracking-widest text-muted-foreground uppercase mb-3">{type}</h2>
           <div className="space-y-2">
@@ -56,19 +57,18 @@ const WorkoutPage: React.FC<Props> = ({ onNavigate }) => {
                 </div>
                 <Play size={18} className="text-primary" />
               </button>
-            ))
-            }
+            ))}
           </div>
         </div>
-      ))
-      }
+      ))}
     </div>
   );
 };
 
 const ActiveWorkoutView: React.FC<{ onNavigate: (tab: string) => void }> = ({ onNavigate }) => {
-  const { activeWorkout, completeExercise, finishWorkout, cancelWorkout } = useWorkout();
+  const { activeWorkout, completeExercise, finishWorkout, cancelWorkout, swapExercise } = useWorkout();
   const [expandedIdx, setExpandedIdx] = useState<number | null>(0);
+  const [swapTarget, setSwapTarget] = useState<{ index: number; exerciseId: string } | null>(null);
 
   if (!activeWorkout) return null;
 
@@ -89,7 +89,6 @@ const ActiveWorkoutView: React.FC<{ onNavigate: (tab: string) => void }> = ({ on
     const allDone = newSets.every(s => s.completed);
     if (allDone) {
       completeExercise(exIdx, newSets);
-      // Auto-advance to next exercise
       const nextIdx = activeWorkout.exercises.findIndex((e, i) => i > exIdx && !e.completed);
       if (nextIdx !== -1) setExpandedIdx(nextIdx);
       toast.success('Exercise complete!');
@@ -106,7 +105,6 @@ const ActiveWorkoutView: React.FC<{ onNavigate: (tab: string) => void }> = ({ on
 
   return (
     <div className="container max-w-3xl mx-auto px-4 pb-24 md:pb-8">
-      {/* Header */}
       <div className="py-4 flex items-center justify-between">
         <div>
           <h1 className="font-display text-xl md:text-2xl tracking-wider text-foreground">
@@ -119,12 +117,10 @@ const ActiveWorkoutView: React.FC<{ onNavigate: (tab: string) => void }> = ({ on
         </Button>
       </div>
 
-      {/* Progress bar */}
       <div className="status-bar mb-6">
         <div className="status-bar-fill gold-fill" style={{ width: `${progress}%` }} />
       </div>
 
-      {/* Exercise list */}
       <div className="space-y-2">
         {activeWorkout.exercises.map((exLog, idx) => {
           const exercise = getExerciseById(exLog.exerciseId);
@@ -151,7 +147,20 @@ const ActiveWorkoutView: React.FC<{ onNavigate: (tab: string) => void }> = ({ on
                     <div className="text-xs text-muted-foreground">{exercise.muscleGroup}</div>
                   </div>
                 </div>
-                <ChevronRight size={16} className={`text-muted-foreground transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
+                <div className="flex items-center gap-1">
+                  {!exLog.completed && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-7 w-7 p-0 text-muted-foreground hover:text-primary"
+                      onClick={(e) => { e.stopPropagation(); setSwapTarget({ index: idx, exerciseId: exLog.exerciseId }); }}
+                      title="Swap exercise"
+                    >
+                      <ArrowRightLeft size={14} />
+                    </Button>
+                  )}
+                  <ChevronRight size={16} className={`text-muted-foreground transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
+                </div>
               </button>
 
               {isExpanded && !exercise.isCardio && exLog.sets.length > 0 && (
@@ -209,7 +218,6 @@ const ActiveWorkoutView: React.FC<{ onNavigate: (tab: string) => void }> = ({ on
         })}
       </div>
 
-      {/* Finish button */}
       <div className="mt-6">
         <Button
           className="w-full font-display tracking-wider"
@@ -220,6 +228,15 @@ const ActiveWorkoutView: React.FC<{ onNavigate: (tab: string) => void }> = ({ on
           Finish Workout ({completedCount}/{totalCount})
         </Button>
       </div>
+
+      {swapTarget && (
+        <ExerciseSwapModal
+          open={!!swapTarget}
+          onClose={() => setSwapTarget(null)}
+          currentExerciseId={swapTarget.exerciseId}
+          onSwap={(newId) => swapExercise(swapTarget.index, newId)}
+        />
+      )}
     </div>
   );
 };

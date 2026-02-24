@@ -6,6 +6,8 @@ export const WK_KEYS = {
   ACTIVE_PROFILE: `${PREFIX}active-profile`,
   WORKOUT_LOGS: `${PREFIX}workout-logs`,
   ACTIVE_WORKOUT: `${PREFIX}active-workout`,
+  GOALS: `${PREFIX}goals`,
+  ONBOARDING_COMPLETE: `${PREFIX}onboarding-complete`,
 } as const;
 
 export function wkGet<T>(key: string, fallback: T): T {
