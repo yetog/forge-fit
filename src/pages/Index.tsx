@@ -7,18 +7,22 @@ import WorkoutPage from "@/pages/WorkoutPage";
 import WorkoutHistory from "@/pages/WorkoutHistory";
 import NutritionPage from "@/pages/NutritionPage";
 import ProfilePage from "@/pages/ProfilePage";
+import ProgramPage from "@/pages/ProgramPage";
+import OnboardingTutorial from "@/components/OnboardingTutorial";
 import { getTemplateById } from "@/data/workoutTemplates";
+import { wkGet, wkSet, WK_KEYS } from "@/utils/workoutStorage";
 import { Dumbbell, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const Onboarding = () => {
+const Onboarding = ({ onProfileCreated }: { onProfileCreated: () => void }) => {
   const { createProfile } = useWorkout();
   const [newName, setNewName] = useState('');
 
   const handleCreate = () => {
     if (!newName.trim()) return;
     createProfile(newName.trim());
+    onProfileCreated();
   };
 
   return (
@@ -55,8 +59,16 @@ const Onboarding = () => {
 const MainApp = () => {
   const { profiles, startWorkout } = useWorkout();
   const [activeTab, setActiveTab] = useState("dashboard");
+  const [showTutorial, setShowTutorial] = useState(false);
 
-  if (profiles.length === 0) return <Onboarding />;
+  if (profiles.length === 0) {
+    return (
+      <Onboarding onProfileCreated={() => {
+        const done = wkGet(WK_KEYS.ONBOARDING_COMPLETE, false);
+        if (!done) setShowTutorial(true);
+      }} />
+    );
+  }
 
   const handleStartWorkout = (templateId: string) => {
     const template = getTemplateById(templateId);
@@ -66,8 +78,14 @@ const MainApp = () => {
     }
   };
 
+  const handleTutorialComplete = () => {
+    wkSet(WK_KEYS.ONBOARDING_COMPLETE, true);
+    setShowTutorial(false);
+  };
+
   return (
     <div className="min-h-screen bg-background bg-forge-grid">
+      {showTutorial && <OnboardingTutorial onComplete={handleTutorialComplete} />}
       <WorkoutNavbar activeTab={activeTab} onChangeTab={setActiveTab} />
       <div className="py-2 md:py-4">
         {activeTab === "dashboard" && (
@@ -77,6 +95,7 @@ const MainApp = () => {
         {activeTab === "history" && <WorkoutHistory />}
         {activeTab === "nutrition" && <NutritionPage />}
         {activeTab === "profile" && <ProfilePage />}
+        {activeTab === "programs" && <ProgramPage />}
       </div>
     </div>
   );

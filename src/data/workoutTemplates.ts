@@ -12,6 +12,22 @@ export const workoutTemplates: WorkoutTemplate[] = [
     description: 'Quick session: stretching, abs, push-ups, and a run.',
   },
 
+  // BODYWEIGHT (~25-30 min)
+  {
+    id: 'bodyweight-blast',
+    name: 'Bodyweight Blast',
+    type: 'Bodyweight',
+    muscleGroup: 'Full Body',
+    durationMinutes: 30,
+    exercises: [
+      'bodyweight-squats', 'jump-squats', 'pushups', 'diamond-pushups', 'pike-pushups',
+      'burpees', 'mountain-climbers', 'high-knees',
+      'tricep-dips-chair', 'glute-bridges', 'wall-sits',
+      'bicycle-crunches', 'flutter-kicks', 'plank', 'superman-holds',
+    ],
+    description: 'Full body workout with zero equipment. Perfect for home or travel.',
+  },
+
   // ISOMETRIC - CHEST (30-60 min)
   {
     id: 'iso-chest',
