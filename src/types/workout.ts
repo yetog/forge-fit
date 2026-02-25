@@ -1,5 +1,5 @@
 
-export type WorkoutType = 'Light' | 'Isometric' | 'FullBody' | 'Bodyweight';
+export type WorkoutType = 'Light' | 'Isometric' | 'FullBody' | 'Bodyweight' | 'Cardio' | 'Core';
 
 export type MuscleGroup = 'Chest' | 'Back' | 'Legs' | 'Arms' | 'Shoulders' | 'Core' | 'Full Body';
 

@@ -1,5 +1,6 @@
 
 import { WorkoutTemplate } from '@/types/workout';
+import { exercises } from '@/data/exercises';
 
 export const workoutTemplates: WorkoutTemplate[] = [
   // LIGHT (~30 min)
@@ -85,7 +86,62 @@ export const workoutTemplates: WorkoutTemplate[] = [
     exercises: ['stretching', 'smith-squats', 'smith-bench', 'smith-rows', 'smith-shoulder-press', 'dumbbell-curls', 'cable-tricep-pushdown', 'calf-raises', 'crunches', 'treadmill-run'],
     description: 'Compound movements hitting every muscle group.',
   },
+
+  // CARDIO (~30 min)
+  {
+    id: 'cardio-focus',
+    name: 'Cardio Focus',
+    type: 'Cardio',
+    muscleGroup: 'Full Body',
+    durationMinutes: 30,
+    exercises: [
+      'stretching', 'treadmill-run', 'elliptical', 'high-knees',
+      'mountain-climbers', 'burpees', 'jump-squats',
+    ],
+    description: 'Heart-pumping cardio mix with intervals and bodyweight explosives.',
+  },
+
+  // CORE (~20-25 min)
+  {
+    id: 'ab-burner',
+    name: 'Ab Burner',
+    type: 'Core',
+    muscleGroup: 'Core',
+    durationMinutes: 25,
+    exercises: [
+      'crunches', 'bicycle-crunches', 'leg-raises', 'flutter-kicks',
+      'plank', 'russian-twists', 'hanging-leg-raise', 'mountain-climbers',
+    ],
+    description: 'Intense core-focused session targeting all ab regions.',
+  },
 ];
+
+// Dev-mode exercise ID validation
+if (import.meta.env.DEV) {
+  const exerciseIds = new Set(exercises.map(e => e.id));
+  workoutTemplates.forEach(t => {
+    t.exercises.forEach(id => {
+      if (!exerciseIds.has(id)) {
+        console.warn(`⚠️ Template "${t.name}" references unknown exercise ID: "${id}"`);
+      }
+    });
+  });
+}
 
 export const getTemplateById = (id: string) => workoutTemplates.find(t => t.id === id);
 export const getTemplatesByType = (type: string) => workoutTemplates.filter(t => t.type === type);
+
+/** Get all unique workout types from templates */
+export const getWorkoutTypes = (): string[] => {
+  return [...new Set(workoutTemplates.map(t => t.type))];
+};
+
+/** Type display config for UI */
+export const workoutTypeConfig: Record<string, { label: string; icon: string; color: string; bg: string }> = {
+  Light: { label: 'Light', icon: 'Sun', color: 'text-emerald-400', bg: 'bg-emerald-400/10 border-emerald-400/20' },
+  Bodyweight: { label: 'Bodyweight', icon: 'User', color: 'text-amber-400', bg: 'bg-amber-400/10 border-amber-400/20' },
+  Isometric: { label: 'Isometric', icon: 'Zap', color: 'text-primary', bg: 'bg-primary/10 border-primary/20' },
+  FullBody: { label: 'Full Body', icon: 'Dumbbell', color: 'text-blue-400', bg: 'bg-blue-400/10 border-blue-400/20' },
+  Cardio: { label: 'Cardio', icon: 'Heart', color: 'text-rose-400', bg: 'bg-rose-400/10 border-rose-400/20' },
+  Core: { label: 'Core', icon: 'Flame', color: 'text-orange-400', bg: 'bg-orange-400/10 border-orange-400/20' },
+};

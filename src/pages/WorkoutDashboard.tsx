@@ -1,14 +1,18 @@
 
 import React from "react";
 import { useWorkout } from "@/context/WorkoutContext";
-import { workoutTemplates } from "@/data/workoutTemplates";
+import { workoutTemplates, workoutTypeConfig } from "@/data/workoutTemplates";
 import { programs } from "@/data/programs";
-import { Dumbbell, Flame, Trophy, Clock, ChevronRight, Zap, BookOpen, Home as HomeIcon } from "lucide-react";
+import { Dumbbell, Flame, Trophy, Clock, ChevronRight, Zap, BookOpen, Heart, Sun, User } from "lucide-react";
 
 interface Props {
   onStartWorkout: (templateId: string) => void;
   onNavigate: (tab: string) => void;
 }
+
+const typeIcons: Record<string, React.ElementType> = {
+  Light: Sun, Bodyweight: User, Isometric: Zap, FullBody: Dumbbell, Cardio: Heart, Core: Flame,
+};
 
 const WorkoutDashboard: React.FC<Props> = ({ onStartWorkout, onNavigate }) => {
   const { activeProfile, getProfileLogs, getStreak } = useWorkout();
@@ -22,7 +26,18 @@ const WorkoutDashboard: React.FC<Props> = ({ onStartWorkout, onNavigate }) => {
     { template: workoutTemplates.find(t => t.id === 'light-default')!, color: 'text-emerald-400', bg: 'bg-emerald-400/10 border-emerald-400/20' },
     { template: workoutTemplates.find(t => t.id === 'bodyweight-blast')!, color: 'text-amber-400', bg: 'bg-amber-400/10 border-amber-400/20' },
     { template: workoutTemplates.find(t => t.id === 'fullbody-default')!, color: 'text-blue-400', bg: 'bg-blue-400/10 border-blue-400/20' },
+    { template: workoutTemplates.find(t => t.id === 'cardio-focus')!, color: 'text-rose-400', bg: 'bg-rose-400/10 border-rose-400/20' },
+    { template: workoutTemplates.find(t => t.id === 'ab-burner')!, color: 'text-orange-400', bg: 'bg-orange-400/10 border-orange-400/20' },
   ];
+
+  // Dynamic workout type sections (exclude types already in quick start individually)
+  const typeSections = Object.entries(
+    workoutTemplates.reduce<Record<string, typeof workoutTemplates>>((acc, t) => {
+      if (!acc[t.type]) acc[t.type] = [];
+      acc[t.type].push(t);
+      return acc;
+    }, {})
+  ).filter(([_, templates]) => templates.length > 1); // Only show sections with multiple templates
 
   return (
     <div className="container max-w-5xl mx-auto px-4 pb-24 md:pb-8">
@@ -51,7 +66,7 @@ const WorkoutDashboard: React.FC<Props> = ({ onStartWorkout, onNavigate }) => {
       {/* Quick Start */}
       <div className="mb-8">
         <h2 className="font-display text-sm tracking-widest text-muted-foreground uppercase mb-3">Quick Start</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {quickStart.filter(q => q.template).map(({ template, color, bg }) => (
             <button
               key={template.id}
@@ -60,12 +75,12 @@ const WorkoutDashboard: React.FC<Props> = ({ onStartWorkout, onNavigate }) => {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <div className={`font-display text-base tracking-wide ${color}`}>{template.name}</div>
-                  <div className="text-sm text-muted-foreground mt-0.5 flex items-center gap-1">
-                    <Clock size={14} /> ~{template.durationMinutes} min
+                  <div className={`font-display text-sm tracking-wide ${color}`}>{template.name}</div>
+                  <div className="text-xs text-muted-foreground mt-0.5 flex items-center gap-1">
+                    <Clock size={12} /> ~{template.durationMinutes} min
                   </div>
                 </div>
-                <ChevronRight className="text-muted-foreground" size={20} />
+                <ChevronRight className="text-muted-foreground" size={18} />
               </div>
             </button>
           ))}
@@ -104,28 +119,34 @@ const WorkoutDashboard: React.FC<Props> = ({ onStartWorkout, onNavigate }) => {
         </div>
       )}
 
-      {/* Isometric Focus */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="font-display text-sm tracking-widest text-muted-foreground uppercase">Isometric Focus</h2>
-          <button onClick={() => onNavigate('workouts')} className="text-xs text-primary font-semibold hover:underline">
-            View All
-          </button>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {workoutTemplates.filter(t => t.type === 'Isometric').map((template) => (
-            <button
-              key={template.id}
-              onClick={() => onStartWorkout(template.id)}
-              className="workout-card text-left hover:border-primary/30 transition-colors"
-            >
-              <Zap size={16} className="text-primary mb-1" />
-              <div className="font-display text-sm tracking-wide text-foreground">{template.muscleGroup}</div>
-              <div className="text-xs text-muted-foreground">{template.durationMinutes} min</div>
-            </button>
-          ))}
-        </div>
-      </div>
+      {/* Dynamic workout type sections */}
+      {typeSections.map(([type, templates]) => {
+        const config = workoutTypeConfig[type];
+        const Icon = typeIcons[type] || Zap;
+        return (
+          <div key={type} className="mb-8">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="font-display text-sm tracking-widest text-muted-foreground uppercase">{config?.label || type} Focus</h2>
+              <button onClick={() => onNavigate('workouts')} className="text-xs text-primary font-semibold hover:underline">
+                View All
+              </button>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {templates.map((template) => (
+                <button
+                  key={template.id}
+                  onClick={() => onStartWorkout(template.id)}
+                  className="workout-card text-left hover:border-primary/30 transition-colors"
+                >
+                  <Icon size={16} className={config?.color || 'text-primary'} />
+                  <div className="font-display text-sm tracking-wide text-foreground mt-1">{template.muscleGroup || template.name}</div>
+                  <div className="text-xs text-muted-foreground">{template.durationMinutes} min</div>
+                </button>
+              ))}
+            </div>
+          </div>
+        );
+      })}
 
       {/* Recent activity */}
       {recentLogs.length > 0 && (
