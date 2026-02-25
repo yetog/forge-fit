@@ -4,7 +4,8 @@ import { useWorkout } from "@/context/WorkoutContext";
 import { workoutTemplates, getTemplateById } from "@/data/workoutTemplates";
 import { getExerciseById } from "@/data/exercises";
 import { SetLog } from "@/types/workout";
-import { Dumbbell, Clock, ChevronRight, Check, X, Play, ArrowRightLeft } from "lucide-react";
+import { Dumbbell, Clock, ChevronRight, Check, X, Play, ArrowRightLeft, Zap, Heart, Flame, Sun, User } from "lucide-react";
+import { workoutTypeConfig } from "@/data/workoutTemplates";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import ExerciseSwapModal from "@/components/ExerciseSwapModal";
@@ -20,12 +21,12 @@ const WorkoutPage: React.FC<Props> = ({ onNavigate }) => {
     return <ActiveWorkoutView onNavigate={onNavigate} />;
   }
 
-  const grouped: Record<string, typeof workoutTemplates> = {
-    Light: workoutTemplates.filter(t => t.type === 'Light'),
-    Bodyweight: workoutTemplates.filter(t => t.type === 'Bodyweight'),
-    Isometric: workoutTemplates.filter(t => t.type === 'Isometric'),
-    FullBody: workoutTemplates.filter(t => t.type === 'FullBody'),
-  };
+  // Data-driven grouping: automatically picks up new workout types
+  const grouped = workoutTemplates.reduce<Record<string, typeof workoutTemplates>>((acc, t) => {
+    if (!acc[t.type]) acc[t.type] = [];
+    acc[t.type].push(t);
+    return acc;
+  }, {});
 
   return (
     <div className="container max-w-5xl mx-auto px-4 pb-24 md:pb-8">
@@ -36,7 +37,9 @@ const WorkoutPage: React.FC<Props> = ({ onNavigate }) => {
 
       {Object.entries(grouped).map(([type, templates]) => templates.length > 0 && (
         <div key={type} className="mb-8">
-          <h2 className="font-display text-sm tracking-widest text-muted-foreground uppercase mb-3">{type}</h2>
+          <h2 className="font-display text-sm tracking-widest text-muted-foreground uppercase mb-3">
+            {workoutTypeConfig[type]?.label || type}
+          </h2>
           <div className="space-y-2">
             {templates.map((template) => (
               <button

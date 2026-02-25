@@ -3,9 +3,9 @@ import { Program } from '@/types/workout';
 
 export const programs: Program[] = [
   {
-    id: 'ivy-program',
-    name: 'Ivy Program',
-    description: 'A 10-week periodized training program with 3 phases: Hypertrophy → Strength → Power. Progressive overload with structured upper/lower splits.',
+    id: 'forge-protocol',
+    name: 'Forge Protocol',
+    description: 'A 10-week periodized training program: Hypertrophy → Strength → Power. Progressive overload with structured upper/lower splits built to get results.',
     totalWeeks: 10,
     phases: [
       {
