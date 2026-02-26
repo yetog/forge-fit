@@ -62,6 +62,7 @@ export interface WorkoutLog {
 export interface UserProfile {
   id: string;
   name: string;
+  avatarUrl?: string;
   createdAt: string;
   totalWorkouts: number;
   currentStreak: number;

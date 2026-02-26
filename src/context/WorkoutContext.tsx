@@ -23,6 +23,7 @@ interface WorkoutContextType {
   addGoal: (goal: Omit<Goal, 'id' | 'profileId' | 'completed' | 'createdAt'>) => void;
   updateGoal: (goalId: string, updates: Partial<Goal>) => void;
   deleteGoal: (goalId: string) => void;
+  updateProfileAvatar: (avatarUrl: string) => void;
 }
 
 const WorkoutContext = createContext<WorkoutContextType | undefined>(undefined);
@@ -186,13 +187,18 @@ export const WorkoutProvider = ({ children }: { children: ReactNode }) => {
     setGoals(prev => prev.filter(g => g.id !== goalId));
   };
 
+  const updateProfileAvatar = (avatarUrl: string) => {
+    if (!activeProfile) return;
+    setProfiles(prev => prev.map(p => p.id === activeProfile.id ? { ...p, avatarUrl } : p));
+  };
+
   return (
     <WorkoutContext.Provider value={{
       profiles, activeProfile, workoutLogs, activeWorkout, goals,
       createProfile, switchProfile, deleteProfile,
       startWorkout, completeExercise, finishWorkout, cancelWorkout,
       getProfileLogs, getStreak, swapExercise,
-      addGoal, updateGoal, deleteGoal,
+      addGoal, updateGoal, deleteGoal, updateProfileAvatar,
     }}>
       {children}
     </WorkoutContext.Provider>
