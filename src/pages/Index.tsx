@@ -1,6 +1,7 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { WorkoutProvider, useWorkout } from "@/context/WorkoutContext";
+import { GolfProvider } from "@/context/GolfContext";
 import WorkoutNavbar from "@/components/WorkoutNavbar";
 import WorkoutDashboard from "@/pages/WorkoutDashboard";
 import WorkoutPage from "@/pages/WorkoutPage";
@@ -8,6 +9,12 @@ import WorkoutHistory from "@/pages/WorkoutHistory";
 import NutritionPage from "@/pages/NutritionPage";
 import ProfilePage from "@/pages/ProfilePage";
 import ProgramPage from "@/pages/ProgramPage";
+import SportsPage from "@/pages/SportsPage";
+import GolfDashboard from "@/pages/GolfDashboard";
+import GolfClubs from "@/pages/GolfClubs";
+import GolfSessions from "@/pages/GolfSessions";
+import GolfMissCorrection from "@/pages/GolfMissCorrection";
+import GolfTrainingPath from "@/pages/GolfTrainingPath";
 import OnboardingTutorial from "@/components/OnboardingTutorial";
 import { getTemplateById } from "@/data/workoutTemplates";
 import { wkGet, wkSet, WK_KEYS } from "@/utils/workoutStorage";
@@ -60,6 +67,14 @@ const MainApp = () => {
   const { profiles, startWorkout } = useWorkout();
   const [activeTab, setActiveTab] = useState("dashboard");
   const [showTutorial, setShowTutorial] = useState(false);
+  const [sportsView, setSportsView] = useState<string>('hub');
+
+  // Reset sports view when leaving sports tab
+  useEffect(() => {
+    if (activeTab !== 'sports') {
+      setSportsView('hub');
+    }
+  }, [activeTab]);
 
   if (profiles.length === 0) {
     return (
@@ -92,10 +107,37 @@ const MainApp = () => {
           <WorkoutDashboard onStartWorkout={handleStartWorkout} onNavigate={setActiveTab} />
         )}
         {activeTab === "workouts" && <WorkoutPage onNavigate={setActiveTab} />}
+        {activeTab === "programs" && <ProgramPage />}
+        {activeTab === "sports" && (
+          <GolfProvider>
+            {sportsView === 'hub' && (
+              <SportsPage onSelectSport={(sport) => {
+                if (sport === 'golf') setSportsView('golf-dashboard');
+              }} />
+            )}
+            {sportsView === 'golf-dashboard' && (
+              <GolfDashboard
+                onNavigate={setSportsView}
+                onBack={() => setSportsView('hub')}
+              />
+            )}
+            {sportsView === 'golf-clubs' && (
+              <GolfClubs onBack={() => setSportsView('golf-dashboard')} />
+            )}
+            {sportsView === 'golf-sessions' && (
+              <GolfSessions onBack={() => setSportsView('golf-dashboard')} />
+            )}
+            {sportsView === 'golf-miss' && (
+              <GolfMissCorrection onBack={() => setSportsView('golf-dashboard')} />
+            )}
+            {sportsView === 'golf-path' && (
+              <GolfTrainingPath onBack={() => setSportsView('golf-dashboard')} />
+            )}
+          </GolfProvider>
+        )}
         {activeTab === "history" && <WorkoutHistory />}
         {activeTab === "nutrition" && <NutritionPage />}
         {activeTab === "profile" && <ProfilePage />}
-        {activeTab === "programs" && <ProgramPage />}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Home, Dumbbell, History, Apple, User, Menu, BookOpen } from "lucide-react";
+import { Home, Dumbbell, History, Apple, User, Menu, BookOpen, Trophy } from "lucide-react";
 import { useWorkout } from "@/context/WorkoutContext";
 import {
   Drawer,
@@ -24,13 +24,14 @@ const WorkoutNavbar: React.FC<WorkoutNavbarProps> = ({ activeTab, onChangeTab })
     { id: "dashboard", label: "Home", icon: Home },
     { id: "workouts", label: "Workouts", icon: Dumbbell },
     { id: "programs", label: "Programs", icon: BookOpen },
+    { id: "sports", label: "Sports", icon: Trophy },
     { id: "history", label: "History", icon: History },
     { id: "nutrition", label: "Nutrition", icon: Apple },
     { id: "profile", label: "Profile", icon: User },
   ];
 
   // Bottom bar shows subset for mobile
-  const bottomTabs = tabs.filter(t => ['dashboard', 'workouts', 'programs', 'history', 'profile'].includes(t.id));
+  const bottomTabs = tabs.filter(t => ['dashboard', 'workouts', 'sports', 'history', 'profile'].includes(t.id));
 
   const handleTabChange = (tab: string) => {
     onChangeTab(tab);
