@@ -15,7 +15,7 @@ const App = () => (
       <div className="dark min-h-screen bg-background">
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <BrowserRouter basename="/forge-fit">
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="*" element={<NotFound />} />
