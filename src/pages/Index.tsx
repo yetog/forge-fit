@@ -23,13 +23,34 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const Onboarding = ({ onProfileCreated }: { onProfileCreated: () => void }) => {
-  const { createProfile } = useWorkout();
+  const { createProfile, addGoal } = useWorkout();
+  const [step, setStep] = useState(1);
   const [newName, setNewName] = useState('');
+  const [goals, setGoals] = useState(['', '', '']);
+
+  const handleNextStep = () => {
+    if (!newName.trim()) return;
+    setStep(2);
+  };
 
   const handleCreate = () => {
     if (!newName.trim()) return;
     createProfile(newName.trim());
+
+    // Add any goals that were entered
+    goals.forEach(goal => {
+      if (goal.trim()) {
+        addGoal({ title: goal.trim(), target: 1, current: 0, unit: 'complete' });
+      }
+    });
+
     onProfileCreated();
+  };
+
+  const updateGoal = (index: number, value: string) => {
+    const updated = [...goals];
+    updated[index] = value;
+    setGoals(updated);
   };
 
   return (
@@ -44,20 +65,57 @@ const Onboarding = ({ onProfileCreated }: { onProfileCreated: () => void }) => {
           </h1>
           <p className="text-muted-foreground mt-2 font-body text-lg">Your premium workout companion</p>
         </div>
-        <div className="space-y-3">
-          <p className="text-sm text-muted-foreground">Create your profile to get started</p>
-          <Input
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
-            placeholder="Your name..."
-            className="bg-secondary text-center font-body text-lg"
-            onKeyDown={(e) => e.key === 'Enter' && handleCreate()}
-            autoFocus
-          />
-          <Button onClick={handleCreate} className="w-full font-display tracking-wider" size="lg" disabled={!newName.trim()}>
-            <Plus size={18} className="mr-2" /> Create Profile
-          </Button>
-        </div>
+
+        {step === 1 && (
+          <div className="space-y-3">
+            <p className="text-sm text-muted-foreground">Step 1 of 2: Create your profile</p>
+            <Input
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              placeholder="Your name..."
+              className="bg-secondary text-center font-body text-lg"
+              onKeyDown={(e) => e.key === 'Enter' && handleNextStep()}
+              autoFocus
+            />
+            <Button onClick={handleNextStep} className="w-full font-display tracking-wider" size="lg" disabled={!newName.trim()}>
+              Next: Set Your Goals
+            </Button>
+          </div>
+        )}
+
+        {step === 2 && (
+          <div className="space-y-3">
+            <p className="text-sm text-muted-foreground">Step 2 of 2: What are your fitness goals? (optional)</p>
+            <Input
+              value={goals[0]}
+              onChange={(e) => updateGoal(0, e.target.value)}
+              placeholder="Goal 1: e.g., Lose 10 lbs"
+              className="bg-secondary text-center font-body"
+              autoFocus
+            />
+            <Input
+              value={goals[1]}
+              onChange={(e) => updateGoal(1, e.target.value)}
+              placeholder="Goal 2: e.g., Run a 5K"
+              className="bg-secondary text-center font-body"
+            />
+            <Input
+              value={goals[2]}
+              onChange={(e) => updateGoal(2, e.target.value)}
+              placeholder="Goal 3: e.g., Bench 200 lbs"
+              className="bg-secondary text-center font-body"
+            />
+            <div className="flex gap-2">
+              <Button onClick={() => setStep(1)} variant="outline" className="flex-1 font-display tracking-wider" size="lg">
+                Back
+              </Button>
+              <Button onClick={handleCreate} className="flex-1 font-display tracking-wider" size="lg">
+                <Plus size={18} className="mr-2" /> Start Training
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground">You can skip goals and add them later</p>
+          </div>
+        )}
       </div>
     </div>
   );

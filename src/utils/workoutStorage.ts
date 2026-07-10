@@ -8,6 +8,7 @@ export const WK_KEYS = {
   ACTIVE_WORKOUT: `${PREFIX}active-workout`,
   GOALS: `${PREFIX}goals`,
   ONBOARDING_COMPLETE: `${PREFIX}onboarding-complete`,
+  CUSTOM_WORKOUTS: `${PREFIX}custom-workouts`,
 } as const;
 
 export function wkGet<T>(key: string, fallback: T): T {

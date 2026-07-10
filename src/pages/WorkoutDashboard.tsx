@@ -1,9 +1,19 @@
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useWorkout } from "@/context/WorkoutContext";
 import { workoutTemplates, workoutTypeConfig } from "@/data/workoutTemplates";
 import { programs } from "@/data/programs";
-import { Dumbbell, Flame, Trophy, Clock, ChevronRight, Zap, BookOpen, Heart, Sun, User } from "lucide-react";
+import { Dumbbell, Flame, Trophy, Clock, ChevronRight, Zap, BookOpen, Heart, Sun, User, ClipboardPaste, Trash2 } from "lucide-react";
+import WorkoutPasteModal from "@/components/WorkoutPasteModal";
+import { wkGet, wkSet, WK_KEYS } from "@/utils/workoutStorage";
+import { Button } from "@/components/ui/button";
+
+interface CustomWorkout {
+  id: string;
+  name: string;
+  exercises: { name: string; sets: number; reps: string; weight?: string }[];
+  createdAt: string;
+}
 
 interface Props {
   onStartWorkout: (templateId: string) => void;
@@ -19,6 +29,29 @@ const WorkoutDashboard: React.FC<Props> = ({ onStartWorkout, onNavigate }) => {
   const logs = getProfileLogs();
   const streak = getStreak();
   const totalWorkouts = activeProfile?.totalWorkouts || 0;
+
+  const [showPasteModal, setShowPasteModal] = useState(false);
+  const [customWorkouts, setCustomWorkouts] = useState<CustomWorkout[]>(() =>
+    wkGet(WK_KEYS.CUSTOM_WORKOUTS, [])
+  );
+
+  useEffect(() => {
+    wkSet(WK_KEYS.CUSTOM_WORKOUTS, customWorkouts);
+  }, [customWorkouts]);
+
+  const handleWorkoutCreated = (workout: { name: string; exercises: { name: string; sets: number; reps: string; weight?: string }[] }) => {
+    const newWorkout: CustomWorkout = {
+      id: crypto.randomUUID(),
+      name: workout.name,
+      exercises: workout.exercises,
+      createdAt: new Date().toISOString(),
+    };
+    setCustomWorkouts(prev => [newWorkout, ...prev]);
+  };
+
+  const deleteCustomWorkout = (id: string) => {
+    setCustomWorkouts(prev => prev.filter(w => w.id !== id));
+  };
 
   const recentLogs = [...logs].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 3);
 
@@ -85,7 +118,49 @@ const WorkoutDashboard: React.FC<Props> = ({ onStartWorkout, onNavigate }) => {
             </button>
           ))}
         </div>
+        <Button
+          variant="outline"
+          onClick={() => setShowPasteModal(true)}
+          className="w-full mt-3 border-dashed border-primary/30 text-primary hover:bg-primary/10"
+        >
+          <ClipboardPaste size={16} className="mr-2" />
+          Import Custom Workout
+        </Button>
       </div>
+
+      {/* Custom Workouts */}
+      {customWorkouts.length > 0 && (
+        <div className="mb-8">
+          <h2 className="font-display text-sm tracking-widest text-muted-foreground uppercase mb-3">Your Custom Workouts</h2>
+          <div className="space-y-2">
+            {customWorkouts.map((workout) => (
+              <div
+                key={workout.id}
+                className="workout-card-gold flex items-center justify-between"
+              >
+                <div className="flex-1">
+                  <div className="font-display text-sm tracking-wider text-foreground">{workout.name}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {workout.exercises.length} exercises • {workout.exercises.map(e => e.name).slice(0, 2).join(', ')}
+                    {workout.exercises.length > 2 && '...'}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="text-muted-foreground hover:text-destructive h-8 w-8 p-0"
+                    onClick={() => deleteCustomWorkout(workout.id)}
+                  >
+                    <Trash2 size={14} />
+                  </Button>
+                  <ChevronRight size={18} className="text-muted-foreground" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Programs */}
       {programs.length > 0 && (
@@ -175,6 +250,12 @@ const WorkoutDashboard: React.FC<Props> = ({ onStartWorkout, onNavigate }) => {
           </div>
         </div>
       )}
+
+      <WorkoutPasteModal
+        open={showPasteModal}
+        onClose={() => setShowPasteModal(false)}
+        onWorkoutCreated={handleWorkoutCreated}
+      />
     </div>
   );
 };
