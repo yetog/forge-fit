@@ -51,6 +51,11 @@
   font-family: 'Rajdhani', sans-serif;
 }
 
+html, body, #root {
+  min-height: 100%;
+  background-color: hsl(var(--background));
+}
+
 body {
   font-family: 'Rajdhani', sans-serif;
   font-weight: 500;

@@ -4,11 +4,12 @@ import { useWorkout } from "@/context/WorkoutContext";
 import { workoutTemplates, getTemplateById } from "@/data/workoutTemplates";
 import { getExerciseById } from "@/data/exercises";
 import { SetLog } from "@/types/workout";
-import { Dumbbell, Clock, ChevronRight, Check, X, Play, ArrowRightLeft, Zap, Heart, Flame, Sun, User } from "lucide-react";
+import { Dumbbell, Clock, ChevronRight, Check, X, Play, ArrowRightLeft, Zap, Heart, Flame, Sun, User, Timer } from "lucide-react";
 import { workoutTypeConfig } from "@/data/workoutTemplates";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import ExerciseSwapModal from "@/components/ExerciseSwapModal";
+import RestTimer from "@/components/RestTimer";
 
 interface Props {
   onNavigate: (tab: string) => void;
@@ -72,6 +73,8 @@ const ActiveWorkoutView: React.FC<{ onNavigate: (tab: string) => void }> = ({ on
   const { activeWorkout, completeExercise, finishWorkout, cancelWorkout, swapExercise } = useWorkout();
   const [expandedIdx, setExpandedIdx] = useState<number | null>(0);
   const [swapTarget, setSwapTarget] = useState<{ index: number; exerciseId: string } | null>(null);
+  const [showRestTimer, setShowRestTimer] = useState(false);
+  const [activeRestExercise, setActiveRestExercise] = useState<number | null>(null);
 
   if (!activeWorkout) return null;
 
@@ -88,15 +91,24 @@ const ActiveWorkoutView: React.FC<{ onNavigate: (tab: string) => void }> = ({ on
 
   const handleCompleteSet = (exIdx: number, setIdx: number) => {
     const ex = activeWorkout.exercises[exIdx];
+    const wasCompleted = ex.sets[setIdx].completed;
     const newSets = ex.sets.map((s, i) => i === setIdx ? { ...s, completed: !s.completed } : s);
     const allDone = newSets.every(s => s.completed);
+
     if (allDone) {
       completeExercise(exIdx, newSets);
+      setShowRestTimer(false);
+      setActiveRestExercise(null);
       const nextIdx = activeWorkout.exercises.findIndex((e, i) => i > exIdx && !e.completed);
       if (nextIdx !== -1) setExpandedIdx(nextIdx);
       toast.success('Exercise complete!');
     } else {
       completeExercise(exIdx, newSets);
+      // Show rest timer when completing a set (not uncompleting)
+      if (!wasCompleted) {
+        setShowRestTimer(true);
+        setActiveRestExercise(exIdx);
+      }
     }
   };
 
@@ -196,6 +208,35 @@ const ActiveWorkoutView: React.FC<{ onNavigate: (tab: string) => void }> = ({ on
                       </Button>
                     </div>
                   ))}
+
+                  {/* Rest Timer - shows after completing a set */}
+                  {showRestTimer && activeRestExercise === idx && (
+                    <RestTimer
+                      defaultDuration={90}
+                      onClose={() => {
+                        setShowRestTimer(false);
+                        setActiveRestExercise(null);
+                      }}
+                      onComplete={() => {
+                        toast('Rest complete! Time for next set 💪');
+                      }}
+                    />
+                  )}
+
+                  {/* Start Rest Timer button when not showing timer */}
+                  {!showRestTimer && exLog.sets.some(s => s.completed) && !exLog.sets.every(s => s.completed) && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full mt-2 text-muted-foreground hover:text-primary"
+                      onClick={() => {
+                        setShowRestTimer(true);
+                        setActiveRestExercise(idx);
+                      }}
+                    >
+                      <Timer size={14} className="mr-2" /> Start Rest Timer
+                    </Button>
+                  )}
                 </div>
               )}
 
