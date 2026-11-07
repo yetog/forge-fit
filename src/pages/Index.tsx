@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { WorkoutProvider, useWorkout } from "@/context/WorkoutContext";
 import { GolfProvider } from "@/context/GolfContext";
+import { GolfProgressionProvider, useGolfProgression } from "@/context/GolfProgressionContext";
 import WorkoutNavbar from "@/components/WorkoutNavbar";
 import WorkoutDashboard from "@/pages/WorkoutDashboard";
 import WorkoutPage from "@/pages/WorkoutPage";
@@ -15,6 +16,8 @@ import GolfClubs from "@/pages/GolfClubs";
 import GolfSessions from "@/pages/GolfSessions";
 import GolfMissCorrection from "@/pages/GolfMissCorrection";
 import GolfTrainingPath from "@/pages/GolfTrainingPath";
+import { GolfOnboarding } from "@/components/golf/GolfOnboarding";
+import { PlayerHub } from "@/components/golf/PlayerHub";
 import OnboardingTutorial from "@/components/OnboardingTutorial";
 import { getTemplateById } from "@/data/workoutTemplates";
 import { wkGet, wkSet, WK_KEYS } from "@/utils/workoutStorage";
@@ -121,6 +124,56 @@ const Onboarding = ({ onProfileCreated }: { onProfileCreated: () => void }) => {
   );
 };
 
+// Golf Sports Section - handles onboarding and navigation within golf
+const GolfSportsSection = ({
+  sportsView,
+  setSportsView
+}: {
+  sportsView: string;
+  setSportsView: (view: string) => void;
+}) => {
+  const { isOnboarded } = useGolfProgression();
+
+  // Show golf onboarding if not completed
+  if (!isOnboarded && sportsView.startsWith('golf')) {
+    return <GolfOnboarding />;
+  }
+
+  return (
+    <>
+      {sportsView === 'hub' && (
+        <SportsPage onSelectSport={(sport) => {
+          if (sport === 'golf') setSportsView('golf-dashboard');
+        }} />
+      )}
+      {sportsView === 'golf-dashboard' && (
+        <div className="container px-4">
+          <PlayerHub onNavigate={setSportsView} />
+        </div>
+      )}
+      {sportsView === 'golf-clubs' && (
+        <GolfClubs onBack={() => setSportsView('golf-dashboard')} />
+      )}
+      {sportsView === 'golf-sessions' && (
+        <GolfSessions onBack={() => setSportsView('golf-dashboard')} />
+      )}
+      {sportsView === 'golf-miss' && (
+        <GolfMissCorrection onBack={() => setSportsView('golf-dashboard')} />
+      )}
+      {sportsView === 'golf-path' && (
+        <GolfTrainingPath onBack={() => setSportsView('golf-dashboard')} />
+      )}
+      {/* Legacy dashboard accessible via direct link if needed */}
+      {sportsView === 'golf-legacy' && (
+        <GolfDashboard
+          onNavigate={setSportsView}
+          onBack={() => setSportsView('hub')}
+        />
+      )}
+    </>
+  );
+};
+
 const MainApp = () => {
   const { profiles, startWorkout } = useWorkout();
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -168,29 +221,9 @@ const MainApp = () => {
         {activeTab === "programs" && <ProgramPage />}
         {activeTab === "sports" && (
           <GolfProvider>
-            {sportsView === 'hub' && (
-              <SportsPage onSelectSport={(sport) => {
-                if (sport === 'golf') setSportsView('golf-dashboard');
-              }} />
-            )}
-            {sportsView === 'golf-dashboard' && (
-              <GolfDashboard
-                onNavigate={setSportsView}
-                onBack={() => setSportsView('hub')}
-              />
-            )}
-            {sportsView === 'golf-clubs' && (
-              <GolfClubs onBack={() => setSportsView('golf-dashboard')} />
-            )}
-            {sportsView === 'golf-sessions' && (
-              <GolfSessions onBack={() => setSportsView('golf-dashboard')} />
-            )}
-            {sportsView === 'golf-miss' && (
-              <GolfMissCorrection onBack={() => setSportsView('golf-dashboard')} />
-            )}
-            {sportsView === 'golf-path' && (
-              <GolfTrainingPath onBack={() => setSportsView('golf-dashboard')} />
-            )}
+            <GolfProgressionProvider>
+              <GolfSportsSection sportsView={sportsView} setSportsView={setSportsView} />
+            </GolfProgressionProvider>
           </GolfProvider>
         )}
         {activeTab === "history" && <WorkoutHistory />}
