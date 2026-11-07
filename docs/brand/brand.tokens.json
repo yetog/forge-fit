@@ -1,0 +1,57 @@
+{
+  "name": "Forge Fit · Brand v1",
+  "version": "1.0.0",
+  "status": "proposed-for-implementation",
+  "source": "docs/brand/BRAND_CODE_V1.md",
+  "colors": {
+    "bg": "#0B1F17",
+    "deep": "#081611",
+    "surface": "#123428",
+    "raised": "#174333",
+    "gold": "#D4AF37",
+    "goldLite": "#F1D47A",
+    "sand": "#F5E6C8",
+    "white": "#F8F4E8",
+    "muted": "#B6C8BB",
+    "line": "#426250",
+    "success": "#2ECC71",
+    "warning": "#F5A623",
+    "danger": "#EF4444",
+    "ink": "#06140E",
+    "slate": "#1E2A27"
+  },
+  "fonts": {
+    "display": "Bebas Neue",
+    "ui": "Inter"
+  },
+  "spacing": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32,
+    40,
+    48
+  ],
+  "radii": {
+    "control": 12,
+    "card": 16,
+    "rounded": 999
+  },
+  "tapTargetMin": 44,
+  "buttonHeightMin": 48,
+  "nav": [
+    "Home",
+    "Train",
+    "Studio",
+    "Play",
+    "Profile"
+  ],
+  "brandPillars": [
+    "Progression",
+    "Mastery",
+    "Focus",
+    "Performance"
+  ]
+}
