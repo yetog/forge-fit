@@ -121,3 +121,37 @@ To start the asset chat, creative team needs a preference for portrait style (ph
 **No additional user input is required to commit these planning documents.**
 
 Related: [Approved UX blueprint](./UX_SITEMAP_USER_JOURNEYS_V1.md), [V2 Sprint 1 review](./SPRINT_1_V2_REVIEW_2026-11-07.md), [UX design research](./SQUARE_ENIX_UI_RESEARCH.md), [RPG vision](./RPG_VISION.md).
+
+
+## 10. Confirmed Hub-first journey and design handoff (Nov 7)
+
+**Approved decision:** Onboarding lands directly on the **Player Hub**, with a dismissible **“What's your swing like?”** optional swing calibration hint; never require a video, launch monitor or mapped bag before a meaningful first quest.
+
+Reference: [First Visit & Returning Range UX](./UX_FIRST_VISIT_RETURNING_RANGE_JOURNEY_V1.md) and [Gemini Gem art direction and prompts](./design/GEMINI_GEM_ART_DIRECTION_AND_ASSET_PROMPTS_V1.md). Next design step: first-use Hub and first guided mission low-fidelity wireframes, with a returning-visit variant. Generated art is created later; interactive UI is code.
+
+**Practice and reward loop:** After real-world range practice, users can log a past session, add optional trimmed videos, attach and correct TrackMan screenshot measurements, and review swing feedback. Credited XP is for meaningful completed practice/quest events, once per event; imported media alone cannot be used to farm XP. Mastery requires demonstrated skill evidence.
+
+## 11. IDEA-18 — Live scorecard and in-round notes (deferred)
+
+**Priority:** Future phase under **Play**, explicitly **not Sprint 1**, and not a prerequisite for the first training mission.
+
+**User story:** While playing golf, record a hole score in seconds, optionally document what happened (shots, penalties, putts, mental cue, club choice, a quick note/photo/clip), and review score patterns afterward.
+
+**Proposed flow:** Play → Start Round → Select course/tees and 9/18 holes or manual pars → Hole card → enter strokes quickly → optional context/notes → next hole → End Round → Review scorecard and notes → Save / History → optional practice recommendations.
+
+**Minimum viable scorecard UX:**
+- One primary score input, with big touch targets and visible **hole #, par, score, relative to par**, plus previous/next hole navigation.
+- Optional expandable details: fairway hit (par 4/5), green in regulation, putts, penalties, sand saves, tee club, miss direction, short voice/text note and captured media.
+- Auto-save local draft while playing; work with intermittent/no cell coverage; resume interrupted round; editable holes before final submission.
+- No requirement to enter advanced data to advance. Avoid interrupting play with quest celebrations, dense dashboards, or lengthy forms.
+- 9/18 holes, variable par, tee/course variants, strokes/relative-to-par, incomplete/abandoned rounds, score correction and GPS-free/manual setup.
+- Capture **why** a score happened with a few intentional prompts (“What cost strokes?”, “What worked?”, “What would you practice?”) but keep them optional.
+
+**Later engagement:** Post-round reflection, round-to-round scoring trend, GIR/FIR/putts charts where sample quality allows, linked hole clips, personalized “practice this next” quest; optionally a shareable round recap. A scorecard is not proof of an official handicap; any handicap calculations need the right official rating/slope inputs and validated rules.
+
+**Research questions:** Which in-round score entry patterns require the fewest taps? Does a one-tap “+1 stroke” interaction work better than direct score picker? Can score notes remain useful without slowing the golfer? How to avoid data loss offline? What can be reused from existing scorecard/round references without copying designs or infringing licenses?
+
+**Design later:** hole scoring screen, scorecard grid, optional hole detail drawer, offline save/resume, end-round recap, rounds history, accessibility review in bright daylight.
+
+**Non-goal now:** GPS yardages, club sensors, automatic shot detection, official handicap calculations, multiplayer scoring, course-provider integrations.
+
