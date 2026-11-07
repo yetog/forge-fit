@@ -1,35 +1,34 @@
-# Forge Fit: Repository Agent Guardrails
+# Forge Fit — Repository Agent Entry Point
 
-> **Mandatory for all coding, image-generation, product-design, documentation, UX, and UI agents.**
+> Mandatory for all coding, image generation, art direction, UX and QA agents. Read this **before** generating work.
 
-## Before creating or changing ANY Forge Fit visual output
+## Where to start
+1. [Multi-agent production system](docs/agents/README.md) — roles, reading order, provisional vs approved.
+2. [Shared product context and Nov 7 learnings](docs/agents/PROJECT_CONTEXT_AND_LEARNINGS_2026-11-07.md) — portable history for Claude Code, Gemini and Codex.
+3. [Orchestration and human approval gates](docs/agents/ORCHESTRATION.md).
+4. [Strict handoff schema](docs/agents/HANDOFF_CONTRACT.md).
+5. [Role-specific prompts](docs/agents/AGENT_BOOTSTRAP.md).
 
-1. Read [docs/brand/BRAND_CODE_V1.md](docs/brand/BRAND_CODE_V1.md) in full.
-2. Load [docs/brand/brand.tokens.json](docs/brand/brand.tokens.json) as the canonical palette, typography and navigation definition.
-3. Review the approved premium Player Hub in [Figma](https://www.figma.com/design/F3xK2e2i2lFYBt1rZZ1p5J?node-id=4-18). Original generated mood boards are inspiration, **not** implementation-ready UI.
-4. Check [docs/SPRINT_PLAN.md](docs/SPRINT_PLAN.md) and the current V2 user journey before adding new functionality.
+## Visual direction — current authority
+The **owner's original 15-screen Forge Fit composite** is the creative benchmark. This project aims for the emotional, cinematic, distinctive interface craft of a **Square Enix-caliber golf RPG**, with FFVII Rebirth / FFXV *menus* as external interaction/art-direction references (without copying protected art or trademarks).
 
-## Visual identity — never compromise silently
+**Important correction, Nov 7:** Earlier Figma Player Hub designs and [Brand Code v1](docs/brand/BRAND_CODE_V1.md) are **PROVISIONAL**, NOT visually approved. Their green/gold card layouts did not meet the original reference's fidelity. Do not describe a wireframe, existing Figma frame, brand token JSON or Visual DNA diagram as a high-fidelity approved design. Do not mechanically enforce v1 typography/palette as final art authority until the owner approves a revised visual language. Preserve structural wireframes for user journeys and Figma component planning only.
 
-- Identity: **cinematic professional golf** first, **earned RPG** progression second.
-- Use only named approved design tokens; no invented hex colors, gradients, random typefaces, alternative emblems, random UI illustrations, or gold-on-gold treatments.
-- Use Bebas Neue for large display headings, Inter for interface copy, and token-based sizing.
-- Golf imagery must be original and photorealistic or editorial, grounded in actual golf; avoid lifted Square Enix/TrackMan/5 Iron assets.
-- All functional UI (text, buttons, progress, XP, skill tree, video overlays, charts) must be semantic/accessible code or editable Figma layers; never one flattened generated image.
-- State-driven components must cover default, active/selected, locked/disabled, loading, error and complete when relevant.
-- Reconcile any conflicts with legacy style docs in favor of the brand code for V2 screens, and document migrations.
+Current Figma exploration: https://www.figma.com/design/F3xK2e2i2lFYBt1rZZ1p5J . Visual DNA study: https://www.figma.com/design/F3xK2e2i2lFYBt1rZZ1p5J?node-id=11-3 . An agent needing the original reference **must request a verified accessible file** if it is not provided.
 
-## Product truthfulness
+## Non-negotiable product guardrails
+- Player Hub is the first screen after onboarding and contains an actionable personalized starter quest.
+- Video analysis, bag mapping and launch-monitor screenshot calibration are optional. A complete path must exist for golfers without TrackMan equipment.
+- Returning range golfer logs practice, optionally attaches video/metrics, gets evidence-aware feedback and participation XP exactly once. Mastery is separate from XP and requires demonstrated improvement.
+- Never claim official TrackMan/Five Iron integration without confirming availability and rights; never invent golf metrics or imply inferred video data is hardware-measured.
+- Generate original photographic/environmental/achievement assets; interactive UI must stay editable Figma/React/SVG, not a baked screenshot.
 
-- Practice XP rewards activity/completed objectives; mastery requires evidence of improvement.
-- Data imported from TrackMan or video requires clear source labels, user confirmation, uncertainty where relevant; never hallucinate measured data.
-- Player Hub is the first post-onboarding destination, with an actionable first quest.
-- Calibration with video/TrackMan/bag is optional. Users without premium hardware must receive full meaningful journeys.
+## Work and approval rules
+- Each agent works within its role and produces complete handoff Markdown with source links, states, QA evidence, known limitations and explicit owner approval request.
+- Independent QA compares outputs **side by side with the real user reference** and can reject generic off-brand work.
+- No agent may self-approve creative work or silently modify brand authority.
+- Maintain exact artifact versions, Git SHA references, Figma node links and asset provenance. Large images may reside in approved Drive storage with manifest references.
+- Before coding a visual design, demand an **owner-approved art variant plus approved Figma UX handoff**.
+- Changes to this orchestration or visual direction require explicit human decision-log entries, not casual prompt drift.
 
-## Required self-review for submissions
-
-In PR description/design handoff include: (1) branding compliance statement, (2) screenshots at 390 px and 320 px where applicable, (3) token/color audit, (4) component states, (5) accessibility/contrast, (6) first-time and returning player journeys, (7) original asset source/rights and placements, (8) evidence/XP correctness.
-
-**Stop and flag approval needed** rather than silently overriding approved brand colors, icons, imagery style, or information architecture.
-
-The canonical document and tokens are versioned. Updating them is a separate product/design approval, not an incidental component change.
+**First priority:** `VF-001`: faithful high-fidelity original Player Hub; then quest-panel and skill-tree materials; independent quality gate, owner approval, then product design/code.
