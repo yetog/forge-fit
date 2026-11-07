@@ -1,182 +1,208 @@
 # Forge Fit Golf - Sprint Plan
 
-> Project management roadmap for golf section improvements.
+> Project management roadmap for RPG-style golf development platform.
 > Last Updated: November 2026
 
 ---
 
 ## Overview
 
-**Goal:** Transform Forge Fit's golf section from a basic practice logger into a comprehensive golf improvement platform.
+**Vision:** "Golf is the RPG of sports" — Build an RPG-style golf development platform where every practice session, swing analysis, lesson, and round contributes to the golfer's progression.
 
 **Current State:** 5 pages, ~2,200 lines, localStorage only
-**Target State:** Full user journey with video analysis, round tracking, and cloud sync
+**Target State:** RPG progression system with swing studio, quests, and cloud sync
+
+**Core Documents:**
+- `RPG_VISION.md` - Product philosophy and screen designs
+- `SWING_AI_ANALYSIS.md` - Competitor UX patterns to adopt
+- `GOLF_WIREFRAME.md` - Current architecture reference
 
 ---
 
-## Epics
+## Three Interconnected Systems
+
+| System | Focus | Key Features |
+|--------|-------|--------------|
+| Player Experience | User journey | Onboarding, progression, skill tree, challenges |
+| Swing Studio | Video analysis | Recording, trimming, AI analysis, comparisons |
+| Intelligence Infrastructure | Backend | Pose estimation, pipelines, storage, cost controls |
+
+---
+
+## Revised Epics (RPG Direction)
 
 | Epic | Priority | Effort | Description |
 |------|----------|--------|-------------|
-| E1: Onboarding | P0 | Medium | First-time user experience |
-| E2: Quick Logging | P0 | Small | Faster session entry |
-| E3: Drill System | P1 | Medium | Active drill execution |
-| E4: Yardage Tools | P1 | Small | Club distance utilities |
-| E5: Round Tracking | P1 | Large | Score tracking & handicap |
-| E6: Video Analysis | P2 | Large | Swing video capture/review |
-| E7: Backend & Auth | P2 | Large | Supabase integration |
-| E8: Social & Compete | P3 | Medium | Leaderboards, sharing |
+| E1: Player Hub | P0 | Medium | Command center dashboard with XP, quests, stats |
+| E2: Skill Tree | P0 | Medium | Mastery branches for each golf discipline |
+| E3: Training Quests | P1 | Medium | 5-day practice system as guided missions |
+| E4: Swing Studio | P1 | Large | Video capture, comparison, AI analysis |
+| E5: Rounds & Achievements | P1 | Medium | Score tracking, handicap, badges |
+| E6: Onboarding Journey | P0 | Small | Character creation, goal selection |
+| E7: Backend & Auth | P2 | Large | Supabase integration, cloud sync |
+| E8: Progression System | P0 | Medium | XP, levels, mastery tracking |
 
 ---
 
-## Sprint 1: Foundation & Quick Wins
-**Focus:** Improve existing UX, add onboarding
-**Duration:** 2 weeks
+## Design Sprint 1: Product Experience
+**Focus:** User journeys, navigation, RPG progression rules, design system
+**Acceptance:** A golfer can understand what to do next without explanation
 
-### E1: Onboarding
+### E6: Onboarding Journey
 | ID | Story | Points | Status |
 |----|-------|--------|--------|
-| E1-1 | Create welcome screen with app intro | 2 | Todo |
-| E1-2 | Build handicap/skill level selector | 2 | Todo |
-| E1-3 | Add initial club bag setup wizard | 3 | Todo |
-| E1-4 | Create "What's your goal?" screen | 1 | Todo |
-| E1-5 | Add skip option for returning users | 1 | Todo |
+| E6-1 | Create character/profile screen with avatar | 3 | Todo |
+| E6-2 | Build goal selection (Break 90/80/Scratch) | 2 | Todo |
+| E6-3 | Add handicap/skill assessment flow | 3 | Todo |
+| E6-4 | Create "What's your struggle?" screen | 2 | Todo |
+| E6-5 | Build coaching profile (handedness, favorite club, typical miss) | 2 | Todo |
+| E6-6 | Add notification permission with value prop | 1 | Todo |
 
-### E2: Quick Logging
+### E8: Progression System
 | ID | Story | Points | Status |
 |----|-------|--------|--------|
-| E2-1 | Add "Quick Log" button on dashboard | 1 | Todo |
-| E2-2 | Create minimal session form (duration + focus only) | 2 | Todo |
-| E2-3 | Add "Log from template" option | 2 | Todo |
-| E2-4 | Implement swipe-to-log recent session | 2 | Todo |
+| E8-1 | Design XP system (participation rewards) | 3 | Todo |
+| E8-2 | Design Mastery system (demonstrated improvement) | 5 | Todo |
+| E8-3 | Create level progression with thresholds | 3 | Todo |
+| E8-4 | Build progress persistence layer | 3 | Todo |
 
-### E4: Yardage Tools (partial)
+### Design System
 | ID | Story | Points | Status |
 |----|-------|--------|--------|
-| E4-1 | Build club distance chart visualization | 3 | Todo |
-| E4-2 | Create "What club for X yards?" calculator | 2 | Todo |
+| DS-1 | Define visual identity (charcoal, muted greens, metallic accents) | 2 | Todo |
+| DS-2 | Create RPG-style component variants | 3 | Todo |
+| DS-3 | Build progress bar and XP display components | 2 | Todo |
 
-**Sprint 1 Total:** 21 points
+**Sprint 1 Total:** 34 points
 
 ---
 
-## Sprint 2: Drill System & Training
-**Focus:** Make drills interactive and trackable
-**Duration:** 2 weeks
+## Design Sprint 2: High-Fidelity Prototype
+**Focus:** Build the five core screens
+**Acceptance:** Complete clickable flow from onboarding to first completed mission
 
-### E3: Drill System
+### E1: Player Hub (Home)
 | ID | Story | Points | Status |
 |----|-------|--------|--------|
-| E3-1 | Create drill execution screen | 3 | Todo |
-| E3-2 | Add rep counter with tap-to-count | 2 | Todo |
-| E3-3 | Build drill timer component | 2 | Todo |
-| E3-4 | Add "complete drill" with feedback | 2 | Todo |
-| E3-5 | Track drill history per session | 2 | Todo |
-| E3-6 | Create custom drill builder | 3 | Todo |
-| E3-7 | Add drill recommendations based on misses | 3 | Todo |
+| E1-1 | Create Player Hub layout with avatar, level, XP bar | 5 | Todo |
+| E1-2 | Build current quest card with progress | 3 | Todo |
+| E1-3 | Add stats section (handicap, sessions, streak, best round) | 3 | Todo |
+| E1-4 | Create "Today's Mission" with CTA | 2 | Todo |
+| E1-5 | Implement "Continue Training" primary action | 2 | Todo |
 
-### E4: Yardage Tools (continued)
+### E2: Skill Tree
 | ID | Story | Points | Status |
 |----|-------|--------|--------|
-| E4-3 | Add gap analysis between clubs | 2 | Todo |
-| E4-4 | Create distance tracking over time | 3 | Todo |
+| E2-1 | Design skill tree data structure | 3 | Todo |
+| E2-2 | Build visual skill tree with branches | 5 | Todo |
+| E2-3 | Create mastery percentage display per skill | 2 | Todo |
+| E2-4 | Add drill/milestone links within each branch | 3 | Todo |
 
-**Sprint 2 Total:** 22 points
+### E3: Training Quests
+| ID | Story | Points | Status |
+|----|-------|--------|--------|
+| E3-1 | Create active quest card with day-by-day progress | 3 | Todo |
+| E3-2 | Build weekly schedule display (Mon-Fri) | 3 | Todo |
+| E3-3 | Add "Start Today's Mission" flow | 3 | Todo |
+| E3-4 | Display quest rewards (XP, mastery unlocks) | 2 | Todo |
+| E3-5 | Integrate 5-day practice system as quests | 5 | Todo |
 
----
-
-## Sprint 3: Round Tracking
-**Focus:** Log actual golf rounds, not just practice
-**Duration:** 2 weeks
-
-### E5: Round Tracking
+### E5: Rounds & Achievements
 | ID | Story | Points | Status |
 |----|-------|--------|--------|
 | E5-1 | Create round entry form (course, date, tees) | 3 | Todo |
 | E5-2 | Build hole-by-hole score entry | 5 | Todo |
-| E5-3 | Add GIR/FIR tracking per hole | 3 | Todo |
-| E5-4 | Implement putt counting per hole | 2 | Todo |
-| E5-5 | Calculate and display round stats | 3 | Todo |
-| E5-6 | Build round history list | 2 | Todo |
-| E5-7 | Add handicap calculation (basic) | 3 | Todo |
-| E5-8 | Create scoring trends chart | 3 | Todo |
+| E5-3 | Add GIR/FIR/putts tracking per hole | 3 | Todo |
+| E5-4 | Display personal records section | 2 | Todo |
+| E5-5 | Build achievement badges (locked/unlocked states) | 3 | Todo |
+| E5-6 | Add handicap calculation and display | 3 | Todo |
 
-**Sprint 3 Total:** 24 points
-
----
-
-## Sprint 4: Video Foundations
-**Focus:** Basic video capture and playback
-**Duration:** 2 weeks
-
-### E6: Video Analysis (Phase 1)
+### Navigation
 | ID | Story | Points | Status |
 |----|-------|--------|--------|
-| E6-1 | Add video upload to session form | 3 | Todo |
-| E6-2 | Create video player component | 3 | Todo |
-| E6-3 | Build frame-by-frame scrubber | 5 | Todo |
-| E6-4 | Add video thumbnail to session cards | 2 | Todo |
-| E6-5 | Implement video storage (local first) | 3 | Todo |
-| E6-6 | Create side-by-side comparison view | 5 | Todo |
+| NAV-1 | Build bottom navigation (Home, Train, Studio, Play, Profile) | 3 | Todo |
+| NAV-2 | Add active state and transitions | 2 | Todo |
 
-**Sprint 4 Total:** 21 points
+**Sprint 2 Total:** 65 points
 
 ---
 
-## Sprint 5: Backend & Authentication
-**Focus:** Move from localStorage to cloud
-**Duration:** 2-3 weeks
+## Design Sprint 3: Functional Vertical Slice
+**Focus:** Upload → Trim → Analyze → Compare → Save
+**Acceptance:** Real video completes the process with observable performance and errors
+
+### E4: Swing Studio
+| ID | Story | Points | Status |
+|----|-------|--------|--------|
+| E4-1 | Create Swing Studio layout with dual video panels | 5 | Todo |
+| E4-2 | Build video upload/record interface | 5 | Todo |
+| E4-3 | Implement video trimming tool | 5 | Todo |
+| E4-4 | Create playback controls with scrubber | 3 | Todo |
+| E4-5 | Add slow motion playback (0.25x, 0.5x) | 2 | Todo |
+| E4-6 | Build swing phase markers (Address, Top, Impact, Finish) | 3 | Todo |
+| E4-7 | Create side-by-side comparison view | 5 | Todo |
+| E4-8 | Add comparison mode selector (Previous/Pro/Coach) | 2 | Todo |
+| E4-9 | Implement synchronized playback | 5 | Todo |
+| E4-10 | Build video storage (local first) | 3 | Todo |
+
+### AI Analysis Pipeline
+| ID | Story | Points | Status |
+|----|-------|--------|--------|
+| AI-1 | Integrate MediaPipe pose detection | 8 | Todo |
+| AI-2 | Draw skeleton overlay on video | 5 | Todo |
+| AI-3 | Detect swing phases automatically | 5 | Todo |
+| AI-4 | Calculate joint angles at key positions | 3 | Todo |
+| AI-5 | Generate swing assessment (8 categories from Swing AI) | 5 | Todo |
+| AI-6 | Create practice plan from analysis | 3 | Todo |
+| AI-7 | Generate swing thoughts (3 mental cues) | 2 | Todo |
+
+### Analysis Results
+| ID | Story | Points | Status |
+|----|-------|--------|--------|
+| AR-1 | Build tabbed results view (Analysis/Drills/Thoughts) | 3 | Todo |
+| AR-2 | Create assessment accordion components | 3 | Todo |
+| AR-3 | Add drill cards with instructions | 2 | Todo |
+| AR-4 | Display confidence levels honestly | 2 | Todo |
+| AR-5 | Store analysis results with session | 3 | Todo |
+
+**Sprint 3 Total:** 82 points
+
+---
+
+## Design Sprint 4: Economics & Validation
+**Focus:** Processing benchmarks, usage analytics, beta feedback
+**Acceptance:** Measured cost per analysis, processing latency, and repeat engagement
 
 ### E7: Backend & Auth
 | ID | Story | Points | Status |
 |----|-------|--------|--------|
 | E7-1 | Set up Supabase project | 2 | Todo |
-| E7-2 | Create database schema (users, sessions, clubs) | 3 | Todo |
+| E7-2 | Create database schema (users, sessions, progress, videos) | 5 | Todo |
 | E7-3 | Build sign up flow (email/password) | 3 | Todo |
 | E7-4 | Build sign in flow | 2 | Todo |
 | E7-5 | Add Google OAuth | 2 | Todo |
 | E7-6 | Migrate localStorage to Supabase | 5 | Todo |
 | E7-7 | Implement offline-first with sync | 5 | Todo |
 | E7-8 | Add profile settings page | 3 | Todo |
-| E7-9 | Create data export feature | 2 | Todo |
 
-**Sprint 5 Total:** 27 points
-
----
-
-## Sprint 6: Video Analysis Advanced
-**Focus:** AI-powered swing analysis
-**Duration:** 2-3 weeks
-
-### E6: Video Analysis (Phase 2)
+### Infrastructure
 | ID | Story | Points | Status |
 |----|-------|--------|--------|
-| E6-7 | Integrate MediaPipe pose detection | 8 | Todo |
-| E6-8 | Draw skeleton overlay on video | 5 | Todo |
-| E6-9 | Calculate and display joint angles | 5 | Todo |
-| E6-10 | Add swing position markers (address, top, impact) | 3 | Todo |
-| E6-11 | Create swing metrics dashboard | 5 | Todo |
-| E6-12 | Store analysis results with session | 3 | Todo |
+| INF-1 | Set up R2/S3 for video storage | 3 | Todo |
+| INF-2 | Create video compression pipeline | 5 | Todo |
+| INF-3 | Implement cost tracking per analysis | 3 | Todo |
+| INF-4 | Add processing latency monitoring | 2 | Todo |
+| INF-5 | Create usage analytics dashboard | 5 | Todo |
 
-**Sprint 6 Total:** 29 points
-
----
-
-## Sprint 7: Social & Competitions
-**Focus:** Community features
-**Duration:** 2 weeks
-
-### E8: Social & Compete
+### Beta Testing
 | ID | Story | Points | Status |
 |----|-------|--------|--------|
-| E8-1 | Create public profile page | 3 | Todo |
-| E8-2 | Build leaderboard component | 3 | Todo |
-| E8-3 | Add weekly challenges | 5 | Todo |
-| E8-4 | Implement badge/achievement system | 5 | Todo |
-| E8-5 | Create share-to-social feature | 3 | Todo |
-| E8-6 | Add friend connections | 5 | Todo |
+| BETA-1 | Implement feature flags for beta | 2 | Todo |
+| BETA-2 | Add feedback collection in-app | 3 | Todo |
+| BETA-3 | Create beta user onboarding | 2 | Todo |
+| BETA-4 | Build admin dashboard for metrics | 5 | Todo |
 
-**Sprint 7 Total:** 24 points
+**Sprint 4 Total:** 57 points
 
 ---
 
@@ -191,42 +217,60 @@
 | B-5 | Weather conditions logging | E5 | Wind, temp |
 | B-6 | Apple Watch integration | E7 | Heart rate during round |
 | B-7 | Push notifications | E7 | Practice reminders |
-| B-8 | AI coaching suggestions | E6 | Based on video analysis |
-| B-9 | Tournament mode | E8 | Multi-round events |
-| B-10 | YouTube drill library | E3 | From user feedback |
+| B-8 | Cloud GPU analysis tier | E4 | Advanced biomechanics |
+| B-9 | Tournament mode | E5 | Multi-round events |
+| B-10 | LLM-powered coaching explanations | E4 | Natural language feedback |
+| B-11 | Social & Compete features | - | Leaderboards, challenges, sharing |
+| B-12 | Professional reference swing library | E4 | Compare against tour pros |
 
 ---
 
 ## Metrics & Success Criteria
 
-### Sprint 1 Success
-- [ ] New users complete onboarding in < 2 minutes
-- [ ] Quick log reduces session entry time by 50%
+### Sprint 1 Success (Product Experience)
+- [ ] A golfer can understand what to do next without explanation
+- [ ] Onboarding completion rate >80%
+- [ ] XP/Mastery system rules clearly documented
 
-### Sprint 3 Success
-- [ ] Users can log a full 18-hole round
-- [ ] Handicap displays on dashboard
+### Sprint 2 Success (High-Fidelity Prototype)
+- [ ] Complete clickable flow: onboarding → first mission
+- [ ] All five core screens navigable
+- [ ] First swing uploaded >60% of signups
 
-### Sprint 5 Success
-- [ ] Users can sign up and sync across devices
-- [ ] Offline mode works without data loss
+### Sprint 3 Success (Functional Vertical Slice)
+- [ ] Real video: Upload → Trim → Analyze → Compare → Save
+- [ ] Observable performance with error handling
+- [ ] Analysis latency <30 seconds
 
-### Sprint 6 Success
-- [ ] Video analysis detects 33 pose landmarks
-- [ ] Angle display updates in real-time
+### Sprint 4 Success (Economics & Validation)
+- [ ] Cost per analysis measured (<$0.02 target)
+- [ ] Processing latency benchmarked
+- [ ] Beta user retention tracked (>40% 7-day target)
+- [ ] Quest completion rate >50%
 
 ---
 
 ## Technical Dependencies
 
 ```
-Sprint 1-2: No new dependencies (existing stack)
-Sprint 3: date-fns (already have)
-Sprint 4: react-player or native video
-Sprint 5: @supabase/supabase-js, @supabase/auth-ui-react
-Sprint 6: @mediapipe/pose, @tensorflow/tfjs
-Sprint 7: (depends on backend)
+Sprint 1: Design tokens, shadcn/ui variants
+Sprint 2: react-router-dom (existing), framer-motion (animations)
+Sprint 3: react-player, @mediapipe/pose, @tensorflow/tfjs
+Sprint 4: @supabase/supabase-js, @supabase/auth-ui-react, R2/S3 SDK
 ```
+
+---
+
+## Cost Model (1,000 MAU, 5 swings each)
+
+| Component | Monthly Cost |
+|-----------|--------------|
+| Supabase Pro | $25 |
+| R2 Storage (100GB) | $1.50 |
+| CPU Analysis | $6 |
+| **Total** | **~$32.50** |
+
+GPU analysis would add ~$40-50/month at this scale.
 
 ---
 
@@ -235,57 +279,87 @@ Sprint 7: (depends on backend)
 | Risk | Impact | Mitigation |
 |------|--------|------------|
 | MediaPipe performance on mobile | High | Test early, fallback to server-side |
-| Supabase costs at scale | Medium | Monitor usage, implement caching |
+| 2D pose limitations | High | Don't present derived values as measurements |
 | Video storage costs | High | Compress videos, limit retention |
 | Scope creep | Medium | Strict story acceptance criteria |
+| Supabase costs at scale | Medium | Monitor usage, implement caching |
+| False precision in analysis | Medium | Display confidence levels honestly |
 
 ---
 
 ## Summary
 
-| Sprint | Focus | Points | Weeks |
-|--------|-------|--------|-------|
-| 1 | Foundation & Quick Wins | 21 | 2 |
-| 2 | Drill System & Training | 22 | 2 |
-| 3 | Round Tracking | 24 | 2 |
-| 4 | Video Foundations | 21 | 2 |
-| 5 | Backend & Auth | 27 | 2-3 |
-| 6 | Video Analysis Advanced | 29 | 2-3 |
-| 7 | Social & Competitions | 24 | 2 |
+| Sprint | Focus | Points | Acceptance |
+|--------|-------|--------|------------|
+| 1 | Product Experience | 34 | Golfer understands what to do next |
+| 2 | High-Fidelity Prototype | 65 | Complete flow: onboarding → mission |
+| 3 | Functional Vertical Slice | 82 | Real video through full pipeline |
+| 4 | Economics & Validation | 57 | Measured costs, latency, engagement |
 
-**Total: ~168 points across 14-16 weeks**
+**Total: ~238 points across 4 design sprints**
 
 ---
 
 ## GitHub Labels
 
 ```
+# Epics (updated for RPG direction)
+epic:player-hub
+epic:skill-tree
+epic:training-quests
+epic:swing-studio
+epic:rounds-achievements
 epic:onboarding
-epic:quick-logging
-epic:drills
-epic:yardage
-epic:rounds
-epic:video
 epic:backend
-epic:social
+epic:progression
+
+# Systems
+system:player-experience
+system:swing-studio
+system:infrastructure
+
+# Priority
 priority:p0
 priority:p1
 priority:p2
-priority:p3
+
+# Type
 type:feature
 type:bug
 type:tech-debt
+type:design
+
+# Status
 status:ready
 status:in-progress
 status:blocked
 status:done
+
+# Sprint
+sprint:1-product-experience
+sprint:2-prototype
+sprint:3-vertical-slice
+sprint:4-validation
 ```
+
+---
+
+## Integration with Existing Code
+
+| Current Component | Becomes | Notes |
+|-------------------|---------|-------|
+| GolfDashboard | Player Hub | Add XP, quests, level |
+| GolfTrainingPath | Skill Tree | Visual branches, mastery % |
+| GolfSessions | Training Quests | 5-day system as missions |
+| GolfClubs | Equipment (Profile) | Part of character profile |
+| GolfMissCorrection | Analysis Feedback | Integrated into Swing Studio |
 
 ---
 
 ## Next Steps
 
-1. Create GitHub Milestones for each sprint
-2. Create Issues for Sprint 1 stories
-3. Set up project board (Kanban)
-4. Start Sprint 1
+1. ~~Create GitHub Milestones for each sprint~~ (needs update)
+2. Update GitHub milestones to reflect 4 design sprints
+3. Close/reprioritize existing Sprint 1 issues
+4. Create Sprint 1 issues for Product Experience
+5. Start Sprint 1 with onboarding and progression system
