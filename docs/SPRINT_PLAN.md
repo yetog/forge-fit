@@ -16,6 +16,8 @@
 - `RPG_VISION.md` - Product philosophy and screen designs
 - `SWING_AI_ANALYSIS.md` - Competitor UX patterns to adopt
 - `GOLF_WIREFRAME.md` - Current architecture reference
+- `PRODUCT_BRAINSTORM.md` - User journeys, features, pitch deck outline
+- `SQUARE_ENIX_UI_RESEARCH.md` - FF10 Sphere Grid, FF15, Kingdom Hearts UI patterns
 
 ---
 
@@ -66,14 +68,16 @@
 | E8-3 | Create level progression with thresholds | 3 | Todo |
 | E8-4 | Build progress persistence layer | 3 | Todo |
 
-### Design System
+### Design System (Square Enix Inspired)
 | ID | Story | Points | Status |
 |----|-------|--------|--------|
-| DS-1 | Define visual identity (charcoal, muted greens, metallic accents) | 2 | Todo |
-| DS-2 | Create RPG-style component variants | 3 | Todo |
+| DS-1 | Define color palette (charcoal #1A1A2E, muted green #2E7D32, gold #FFD700) | 2 | Todo |
+| DS-2 | Create RPG-style component variants (glowing borders, metallic effects) | 3 | Todo |
 | DS-3 | Build progress bar and XP display components | 2 | Todo |
+| DS-4 | Design node states for skill tree (available, activated, locked) | 3 | Todo |
+| DS-5 | Create achievement/unlock animations (particle effects) | 2 | Todo |
 
-**Sprint 1 Total:** 34 points
+**Sprint 1 Total:** 39 points
 
 ---
 
@@ -90,13 +94,15 @@
 | E1-4 | Create "Today's Mission" with CTA | 2 | Todo |
 | E1-5 | Implement "Continue Training" primary action | 2 | Todo |
 
-### E2: Skill Tree
+### E2: Skill Tree (FF10 Sphere Grid Style)
 | ID | Story | Points | Status |
 |----|-------|--------|--------|
-| E2-1 | Design skill tree data structure | 3 | Todo |
-| E2-2 | Build visual skill tree with branches | 5 | Todo |
+| E2-1 | Design skill tree data structure (nodes, connections, states) | 3 | Todo |
+| E2-2 | Build visual skill tree with pan/zoom canvas | 5 | Todo |
 | E2-3 | Create mastery percentage display per skill | 2 | Todo |
 | E2-4 | Add drill/milestone links within each branch | 3 | Todo |
+| E2-5 | Implement path highlighting (available routes) | 3 | Todo |
+| E2-6 | Add current position marker with glow effect | 2 | Todo |
 
 ### E3: Training Quests
 | ID | Story | Points | Status |
@@ -116,6 +122,15 @@
 | E5-4 | Display personal records section | 2 | Todo |
 | E5-5 | Build achievement badges (locked/unlocked states) | 3 | Todo |
 | E5-6 | Add handicap calculation and display | 3 | Todo |
+
+### E9: Round Clipping (Differentiator)
+| ID | Story | Points | Status |
+|----|-------|--------|--------|
+| E9-1 | Create quick-record button during active round | 3 | Todo |
+| E9-2 | Build clip tagging system (auto-tag to current hole) | 3 | Todo |
+| E9-3 | Implement clip bucket storage per round | 3 | Todo |
+| E9-4 | Create end-of-round clip compilation | 5 | Todo |
+| E9-5 | Build highlight reel export/share | 3 | Todo |
 
 ### Navigation
 | ID | Story | Points | Status |
@@ -165,7 +180,14 @@
 | AR-4 | Display confidence levels honestly | 2 | Todo |
 | AR-5 | Store analysis results with session | 3 | Todo |
 
-**Sprint 3 Total:** 82 points
+### Shot Tracing (Future Differentiator)
+| ID | Story | Points | Status |
+|----|-------|--------|--------|
+| ST-1 | Create ball flight drawing tool | 5 | Todo |
+| ST-2 | Add trajectory template overlays | 3 | Todo |
+| ST-3 | Implement shot trace animation playback | 5 | Todo |
+
+**Sprint 3 Total:** 95 points
 
 ---
 
@@ -222,6 +244,25 @@
 | B-10 | LLM-powered coaching explanations | E4 | Natural language feedback |
 | B-11 | Social & Compete features | - | Leaderboards, challenges, sharing |
 | B-12 | Professional reference swing library | E4 | Compare against tour pros |
+| B-13 | Coach marketplace | - | Connect with instructors |
+| B-14 | Trackman/Garmin integration | E4 | Hardware data import |
+| B-15 | AI-assisted shot tracing | ST | Auto-detect ball flight |
+
+---
+
+## Differentiator Features
+
+These features set Forge Fit apart from competitors:
+
+| Feature | Description | Priority |
+|---------|-------------|----------|
+| **Round Clipping** | Quick-record clips during round, auto-tag to hole, compile highlight reel | P1 |
+| **Shot Tracing** | Draw/animate ball flight path on recorded video | P2 |
+| **FF10 Skill Tree** | Visual mastery progression inspired by Sphere Grid | P0 |
+| **XP vs Mastery** | Honest separation of participation vs demonstrated skill | P0 |
+| **Square Enix UI** | Game-quality visual design with animations | P0 |
+
+> **Trackman Note:** They have the capability for round clipping but don't offer it. This is our mobile-first opportunity.
 
 ---
 
@@ -291,12 +332,19 @@ GPU analysis would add ~$40-50/month at this scale.
 
 | Sprint | Focus | Points | Acceptance |
 |--------|-------|--------|------------|
-| 1 | Product Experience | 34 | Golfer understands what to do next |
-| 2 | High-Fidelity Prototype | 65 | Complete flow: onboarding → mission |
-| 3 | Functional Vertical Slice | 82 | Real video through full pipeline |
+| 1 | Product Experience | 39 | Golfer understands what to do next |
+| 2 | High-Fidelity Prototype | 87 | Complete flow: onboarding → mission + round clipping |
+| 3 | Functional Vertical Slice | 95 | Real video through full pipeline + shot tracing |
 | 4 | Economics & Validation | 57 | Measured costs, latency, engagement |
 
-**Total: ~238 points across 4 design sprints**
+**Total: ~278 points across 4 design sprints**
+
+### User Journeys Covered
+1. **Practice Logger** - Log sessions, track drills, see progress
+2. **Swing Analyst** - Record, analyze, compare swings
+3. **Round Tracker** - Score rounds, clip highlights, share
+4. **Lesson Taker** - Track coach assignments (future)
+5. **Competitor** - Challenges, leaderboards (future)
 
 ---
 
