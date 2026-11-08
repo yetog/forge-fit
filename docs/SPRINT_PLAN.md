@@ -3,6 +3,8 @@
 > Project management roadmap for RPG-style golf development platform.
 > Last Updated: November 2026
 
+> **Nov 7, 2026 roadmap amendment — Sprint 1.5 added:** The owner reports Sprint 1 completed. The milestone is documented at [SPRINT_1_5_VISUAL_FIDELITY.md](./SPRINT_1_5_VISUAL_FIDELITY.md) and sits **between Sprint 1 and Sprint 2**. The original 39-point Sprint 1 planning table and its `Todo` statuses are retained as historical planning metadata; actual per-story completion was **not independently reconciled**. Sprint 1.5 installs art direction, independent QA, owner approvals and asset provenance before new high-fidelity Sprint 2 screen implementation. Brand Code v1 and prior generic Figma screens are **provisional**, not approved visual masters. Do not merge planning points with the original sprint total until estimates are reconciled.
+
 ---
 
 ## Overview
