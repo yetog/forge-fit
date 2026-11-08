@@ -10,6 +10,7 @@ Decisions here record **explicit user direction**, not AI's guesses. Owners must
 | D-004 | 2026-11-07 | AGREED | Separate art direction, UX design, frontend implementation and independent brand QA, with versioned GitHub context | Multi-agent protocol | Owner request |
 | D-005 | 2026-11-07 | PROVISIONAL | Earlier Figma layouts and Brand Code v1 are structural/draft material; revised art standard pending source-side fidelity review | Figma, docs/brand | No final visual approval |
 | D-006 | 2026-11-07 | PROPOSED | `VF-001` is the first visual quality gate: faithful Player Hub with 2–3 controlled quest-panel variants | agents/ORCHESTRATION.md | Pending owner choice |
+| D-008 | 2026-11-07 | AGREED | Add **Sprint 1.5** between owner-reported completed Sprint 1 and planned Sprint 2 to implement multi-agent visual fidelity/approval workflow while owner curates high-resolution 15-screen source; preserve existing sprint roadmap | [Sprint 1.5](../SPRINT_1_5_VISUAL_FIDELITY.md) | Owner explicitly requested |
 | D-007 | 2026-11-07 | RESEARCH | Store art in Google Drive with manifest; Gemini Gem default, Leonardo optional | agents/ASSET_PIPELINE.md | Integration and access not configured |
 
 ## Decision record template
