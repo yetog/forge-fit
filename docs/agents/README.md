@@ -51,6 +51,9 @@ Use [Orchestration](./ORCHESTRATION.md) for state transitions and [Handoff Contr
 - Visual DNA board: https://www.figma.com/design/F3xK2e2i2lFYBt1rZZ1p5J?node-id=11-3 (research/exploration)
 - Keep future experiments separate from `APPROVED` components.
 
+## Sprint 1.5 — active planning bridge
+The current milestone is [Sprint 1.5: Visual Fidelity & Multi-Agent Operationalization](../SPRINT_1_5_VISUAL_FIDELITY.md). It follows owner-reported Sprint 1 completion and precedes Sprint 2 implementation. Intake checklist: [REFERENCE_INTAKE_SP15.md](./REFERENCE_INTAKE_SP15.md); QA gates: [SPRINT_1_5_QA_WORKSHEET.md](./SPRINT_1_5_QA_WORKSHEET.md). Documented workflow readiness is **not** completion of the artistic, UX, or engineering gates.
+
 ## Immediate prioritized assignment
 **VF-001: Artistically reconstruct one Player Hub** faithful to the original 15-screen creative reference. Study panel metalwork, cinematic scene, avatar, marks, controls and skill progression; produce 2–3 variants with a critique matrix; seek owner approval before handing it to UX and code. This is **not** another generic first-pass Figma redraw.
 
