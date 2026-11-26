@@ -15,6 +15,9 @@ Forge Fit's training loop is **Assess → Diagnose → Prescribe → Practice �
 3. [Swing assessment template](SWING_ASSESSMENT_TEMPLATE.md) — proposed intake for Justin's next lesson.
 4. [Coaching roadmap and questions](COACHING_BRIEF.md) — four-lesson working plan, not an instruction to override Justin.
 5. [Integration contract](INTEGRATION_CONTRACT.md) — safe path into existing Forge Fit app.
+6. [Dated chat-history audit](CHAT_HISTORY_AUDIT_2026-11-26.md) — historical conversation excerpts, provenance and unresolved original-source retrieval.
+7. [Knowledge gap comparison](KNOWLEDGE_GAP_COMPARISON_2026-11-26.md) — existing vs newly recovered knowledge, prioritized.
+8. [Practice system candidates](PRACTICE_SYSTEM_CANDIDATES.md) — recovered candidate drills and schedule awaiting validation.
 
 ## Existing authority and reconciliation
 
