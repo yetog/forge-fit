@@ -18,6 +18,8 @@ Forge Fit's training loop is **Assess → Diagnose → Prescribe → Practice �
 6. [Dated chat-history audit](CHAT_HISTORY_AUDIT_2026-11-26.md) — historical conversation excerpts, provenance and unresolved original-source retrieval.
 7. [Knowledge gap comparison](KNOWLEDGE_GAP_COMPARISON_2026-11-26.md) — existing vs newly recovered knowledge, prioritized.
 8. [Practice system candidates](PRACTICE_SYSTEM_CANDIDATES.md) — recovered candidate drills and schedule awaiting validation.
+9. [Owner review decisions](REVIEW_DECISIONS_2026-11-26.md) — six approved curation choices; explicitly no application integration/merge.
+10. [Round 2 source validation](SOURCE_VALIDATION_ROUND_2.md) — independently checked golf terminology and unresolved personalization questions.
 
 ## Existing authority and reconciliation
 
