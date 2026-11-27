@@ -10,6 +10,8 @@ Forge Fit's training loop is **Assess → Diagnose → Prescribe → Practice �
 
 ## Start here
 
+**For the golf instructor:** [Justin — Start Here](JUSTIN_START_HERE.md) is the concise coach-facing overview and navigation page. The private asset folder remains outside GitHub.
+
 1. [Source inventory](SOURCE_INVENTORY.md) — material actually inspected and outstanding retrieval.
 2. [Knowledge and evidence ledger](KNOWLEDGE_LEDGER.md) — sourced observations, hypotheses and uncertainties.
 3. [Swing assessment template](SWING_ASSESSMENT_TEMPLATE.md) — proposed intake for Justin's next lesson.
@@ -20,6 +22,8 @@ Forge Fit's training loop is **Assess → Diagnose → Prescribe → Practice �
 8. [Practice system candidates](PRACTICE_SYSTEM_CANDIDATES.md) — recovered candidate drills and schedule awaiting validation.
 9. [Owner review decisions](REVIEW_DECISIONS_2026-11-26.md) — six approved curation choices; explicitly no application integration/merge.
 10. [Round 2 source validation](SOURCE_VALIDATION_ROUND_2.md) — independently checked golf terminology and unresolved personalization questions.
+11. [Justin coaching handoff](JUSTIN_START_HERE.md) — coach-focused entry point, evidence questions and private evidence checklist.
+12. [Merge scope decision](MERGE_SCOPE_DECISION_2026-11-26.md) — owner-authorized documentation merge into V2 (not app feature integration).
 
 ## Existing authority and reconciliation
 
@@ -46,6 +50,10 @@ No automatic promotion between levels. Preserve dates, missingness and conflicti
 ## Scope and privacy
 
 The player history is **private user-specific learning data**, not generic prescribed golf instruction. The repository is public: do **not** upload identifiable raw videos, coaching records, original chat exports, contact information, raw screenshots, or personalized measurements without an explicit publication decision. This repository contains a non-identifying summary only. Use a private, consented store for sensitive source assets.
+
+## Authorization update
+
+Owner authorized merging this **documentation package** into the V2 golf branch on 2026-11-26 after Justin-facing organization. This supersedes older historical "no merge" instructions **only for this documentation PR**. No automatic app feature integration, main-branch merge, production deployment or sharing with Justin is authorized by that statement.
 
 ## Next gates
 
